@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setItem } from "../redux/localStorage";
 import "../styles/addressform.css";
+import axios from "axios"
 // import {Link} from 'react-router-dom'
 
 let initial ={
@@ -16,6 +17,7 @@ let initial ={
 
 const AddressForm = () => {
   const [type, setType] = useState("");
+  const [city,setCity] = useState("")
   const [formData, setFormData] = useState(initial);
   const navigate = useNavigate()
   const handleAddress = (e) => {
@@ -40,6 +42,15 @@ const AddressForm = () => {
       targeted2[0].style.color = "rgb(253, 122, 70)"
     }
   };
+
+
+  const getPinCodeInfo = async(e) => {
+        const data = await axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
+        // return data
+        console.log(data.data[0].PostOffice[0].Block)
+        setCity(data.data[0].PostOffice[0].Block)
+  }
+  // getPinCodeInfo()
 
   console.log(type);
   const handleChange = (e) => {
@@ -88,15 +99,15 @@ let address = formData
         <Box className="addressInfo">
           <Box className="addresspin">
             <div className="myfloat">
-              <input type="number" placeholder=" " required onChange={handleChange} name="pincode"  />
+              <input type="number" placeholder=" " required onChange={getPinCodeInfo} name="pincode" message="ello" />
               <label>Pincode</label>
             </div>
             <div className="myfloat">
-              <input type="text" placeholder=" " required onChange={handleChange} name="city" />
+              <input type="text" placeholder=" " required onChange={getPinCodeInfo} name="city" disabled value={city} />
               <label>City</label>
             </div>
             <div className="myfloat">
-              <input type="text" placeholder=" " required onChange={handleChange} name="state" />
+              <input type="text" placeholder=" " required onChange={getPinCodeInfo} name="state" value disabled />
               <label>State</label>
             </div>
           </Box>
@@ -107,7 +118,7 @@ let address = formData
             </div>
           </Box>
           <Text fontSize="16px" fontWeight={"600"} textAlign="left" ml={"5vw"} mt="3vh">Type of Address</Text>
-          <Box className="typesof">
+          <Box className="typesof" required>
             <div className="home type" onClick={handleAddress}>
               Home
             </div>

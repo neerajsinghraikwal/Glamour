@@ -1,6 +1,7 @@
 .outerbox{
     width: 70vw;
     margin: auto;
+    /* margin-top: 40px; */
 }
 .productsOuter{
     width: 100%;
@@ -9,6 +10,7 @@
     display: flex;
     width: 100%;
     height: 140px;
+    border-bottom: 1px solid gray;
 }
 .Imgdiv{
     width: 20%;
@@ -47,19 +49,27 @@
     display: flex;
     padding: 1%;
 }
+.removeproduct > img{
+    width: 20px;
+    height: 20px;
+}
 
 .counterbtn{
-    width: 5%;
+    width: 40px;
+    height: 40px;
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     padding: 0px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
 }
 
 .countText{
-    width: 5%;
+    width: 10%;
     margin: auto;
     display: flex;
     justify-content: center;
@@ -68,34 +78,31 @@
 }
 
 .removebtn{
-    width: 70%;
+    width: 30px;
+    height: 30px;
     margin: auto;
-    height: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2px;
-    color: white;
-    border-radius: 10%;
-    font-size: 16px;
-    font-weight: 600;
-    background-color: rgb(249, 57, 57);
 }
-
+.outerbox>h1{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
 
 
 @media all and (min-width: 320px) and (max-width: 767px) {
     .outerbox{
         width: 80%;
+        margin-top: 30px;
     }
     .singleProduct{
         height: 200px;
     }
     .removebtn{
-        height: 70%;
-        width: 50%;
-        font-size: 15px;
-        padding: 5px;
+        width: 30px;
+        height: 30px;
     }
     .detailsdiv{
         display: flex;
@@ -117,6 +124,14 @@
         width: 40%;
         height: 25%;
     }
+    .Imgdiv{
+        width: 40%;
+        padding: 1%;
+    }
+    .Imgdiv > img{
+        width: 80%;
+        height: 80%;
+    }
 }
 
 
@@ -129,10 +144,8 @@
         height: 200px;
     }
     .removebtn{
-        height: 70%;
-        width: 50%;
-        font-size: 20px;
-        padding: 5px;
+        width: 30px;
+        height: 30px;
     }
     .detailsdiv{
         display: flex;

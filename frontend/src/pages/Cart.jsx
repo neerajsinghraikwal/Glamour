@@ -1,4 +1,4 @@
-import { Box, Button, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Image, Img, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   deleteCartItem,
@@ -9,16 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import "../styles/cart.css";
 import { Link } from "react-router-dom";
 import { getItem } from "../redux/localStorage";
+import deleteicon from "../Images/deleteicon.jpg" 
 
 const Cart = () => {
-  const [inc, setInc] = useState(false);
-  const [dec, setDec] = useState(false);
-  const [itemDelete, setItemDelete] = useState(false);
+  const [flag, setFlag] = useState(false);
   const dispatch = useDispatch();
   const data = useSelector((Store) => Store.cart);
   const token = getItem("token");
   const totalCartItems = data.cartData.length;
-  // console.log(totalCartItems)
 
   let cartDetails = data.cartData;
   const id = getItem("userid");
@@ -34,22 +32,23 @@ const Cart = () => {
 
   const handleInc = (idd, quantity) => {
     dispatch(updateQuantity(idd, quantity + 1));
-    setInc(!inc);
+    setFlag(!flag);
   };
 
   const handleDec = (idd, quantity) => {
     dispatch(updateQuantity(idd, quantity - 1));
-    setDec(!dec);
+    setFlag(!flag);     
   };
-
+  console.log("cart",cartDetails)
+  
   const handleRemove = (idd) => {
     dispatch(deleteCartItem(idd));
-    setItemDelete(!itemDelete);
+    setFlag(!flag);
   };
 
   useEffect(() => {
     dispatch(getCartDetails(id, token));
-  }, [inc, dec, itemDelete]);
+  }, [flag,dispatch]);
 
   return +totalCartItems === 0 ? (
     <Box h="400px">
@@ -66,13 +65,9 @@ const Cart = () => {
       </Box>
     </Box>
   ) : (
-    // )
-
     <>
       <div className="outerbox">
-        <div>
-          <h1>Bag</h1>
-        </div>
+        <h1>Bag</h1>
         <div className="productsOuter">
           {cartDetails?.map((el, i) => {
             return (
@@ -92,47 +87,31 @@ const Cart = () => {
                     </Text>
                   </div>
                   <div className="counter">
-                    <Button
-                      colorScheme="black"
-                      variant="solid"
-                      color="white"
-                      bgColor="black"
+                    <button
                       className="counterbtn"
-                      fontSize={["20px", "24px", "28px"]}
-                      borderRadius="50%"
                       onClick={() => handleDec(el._id, el.quantity)}
-                      isDisabled={+el.quantity === 1}
+                      disabled={+el.quantity === 1}
                     >
                       -
-                    </Button>
+                    </button>
                     <Text
                       className="countText"
                       fontSize={["16px", "16px", "20px"]}
                     >
                       {el.quantity}
                     </Text>
-                    <Button
-                      colorScheme="black"
-                      variant="solid"
-                      color="white"
-                      bgColor="black"
+                    <button
                       className="counterbtn"
-                      fontSize={["20px", "24px", "28px"]}
-                      borderRadius="50%"
-                      p={"0px"}
-                      isDisabled={+el.quantity === 10}
+                      disabled={+el.quantity === 10}
                       onClick={() => handleInc(el._id, el.quantity)}
                     >
                       +
-                    </Button>
+                    </button>
                   </div>
                   <div className="removeproduct">
-                    <button
-                      className="removebtn"
-                      onClick={() => handleRemove(el._id)}
-                    >
-                      Remove{" "}
-                    </button>
+                    <img src={deleteicon} alt="" className="removebtn"
+                      onClick={() => handleRemove(el._id)}>
+                    </img>
                   </div>
                 </div>
               </div>
@@ -142,7 +121,8 @@ const Cart = () => {
       </div>
       <Box
         w="100vw"
-        border="1px solid"
+        mt={"30px"}
+        border="1px solid transparent"
         h={"50px"}
         fontSize={["15px", "20px", "21px", "21px"]}
         pl={"60vw"}
