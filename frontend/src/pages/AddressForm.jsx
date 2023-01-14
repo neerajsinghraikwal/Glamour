@@ -58,7 +58,7 @@ const AddressForm = () => {
         setState(data.data[0].PostOffice[0].State)
       }
     }catch(err){
-      
+      console.log(err)
     }
   }
 
