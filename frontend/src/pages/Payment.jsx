@@ -21,7 +21,6 @@ import { getItem } from "../redux/localStorage";
 import {  useNavigate } from "react-router-dom";
 import axios from "axios";
 const Payment = () => {
-  const [value, setValue] = React.useState("1");
   let total = getItem("total")
   const toast = useToast()
   const navigate = useNavigate()

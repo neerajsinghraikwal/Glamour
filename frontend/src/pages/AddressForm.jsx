@@ -71,15 +71,7 @@ const AddressForm = () => {
     setFormData({...formData,[name]:value})
     console.log(formData)
   }
-  let id;
-  function debounce(func,delay){
-    if(id){
-        clearTimeout(id);
-    }
-    id=setTimeout(function(){
-        func();
-    },delay);
-}
+  
 
 
 let address = formData

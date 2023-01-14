@@ -1,4 +1,4 @@
-import { Box, Button, Image, Img, Text } from "@chakra-ui/react";
+import { Box, Button, Image, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import {
   deleteCartItem,
