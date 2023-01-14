@@ -107,7 +107,7 @@ const Payment = () => {
                 {" "}
                 <Select
                   icon={<TriangleDownIcon fontSize={"10px"} />}
-                  placeholder="Woohoo! A new icon"
+                  placeholder="Choose Bank"
                   borderRadius={"none"}
                   outline="none"
                   // _focusVisible="none"

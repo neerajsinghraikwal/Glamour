@@ -21,7 +21,7 @@ const Checkout = () => {
     return total;
   };
 
-  let total = findTotal(cartDetails);
+  let total = (findTotal(cartDetails)).toFixed(2);
   setItem("total", total);
 
   const addressDetails = JSON.parse(getItem("address"));
@@ -150,7 +150,7 @@ const Checkout = () => {
           </Box>
           <Box className="orderouter payable">
             <Text>Amount Payable</Text>
-            <Text>{total}</Text>
+            <Text>${total}</Text>
           </Box>
           <Box className="orderouter">
             <Text>You Saved</Text>
@@ -158,7 +158,7 @@ const Checkout = () => {
           </Box>
           <Box className="orderouter">
             <Text>You will earn</Text>
-            <Text>${total / 10}</Text>
+            <Text>${(total / 10).toFixed(2)}</Text>
           </Box>
           <Link to="/payment">
             <button className="proceedtopayment">proceed to payment</button>
