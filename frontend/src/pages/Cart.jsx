@@ -28,7 +28,7 @@ const Cart = () => {
     return total;
   };
 
-  let total = findTotal(cartDetails);
+  let total = (findTotal(cartDetails)).toFixed(2);
 
   const handleInc = (idd, quantity) => {
     dispatch(updateQuantity(idd, quantity + 1));

@@ -18,6 +18,7 @@ let initial ={
 const AddressForm = () => {
   const [type, setType] = useState("");
   const [city,setCity] = useState("")
+  const [state,setState] = useState("")
   const [formData, setFormData] = useState(initial);
   const navigate = useNavigate()
   const handleAddress = (e) => {
@@ -44,12 +45,23 @@ const AddressForm = () => {
   };
 
 
-  const getPinCodeInfo = async(e) => {
-        const data = await axios.get(`https://api.postalpincode.in/pincode/${e.target.value}`)
-        // return data
-        console.log(data.data[0].PostOffice[0].Block)
+  const getPinCodeInfo = async() => {
+    let query = document.querySelector("#pin").value
+    console.log(query)
+    try{
+      const data = await axios.get(`https://api.postalpincode.in/pincode/${query}`)
+      if(query.length !== 6){
+        setCity("")
+        setState("")
+      }else{
         setCity(data.data[0].PostOffice[0].Block)
+        setState(data.data[0].PostOffice[0].State)
+      }
+    }catch(err){
+      
+    }
   }
+
   // getPinCodeInfo()
 
   console.log(type);
@@ -59,6 +71,15 @@ const AddressForm = () => {
     setFormData({...formData,[name]:value})
     console.log(formData)
   }
+  let id;
+  function debounce(func,delay){
+    if(id){
+        clearTimeout(id);
+    }
+    id=setTimeout(function(){
+        func();
+    },delay);
+}
 
 
 let address = formData
@@ -99,15 +120,15 @@ let address = formData
         <Box className="addressInfo">
           <Box className="addresspin">
             <div className="myfloat">
-              <input type="number" placeholder=" " required onChange={getPinCodeInfo} name="pincode" message="ello" />
+              <input type="number" placeholder=" " id="pin" required onChange={getPinCodeInfo} name="pincode" oninput="debounce(main,200)" />
               <label>Pincode</label>
             </div>
             <div className="myfloat">
-              <input type="text" placeholder=" " required onChange={getPinCodeInfo} name="city" disabled value={city} />
+              <input type="text" placeholder=" " required  name="city" disabled value={city} />
               <label>City</label>
             </div>
             <div className="myfloat">
-              <input type="text" placeholder=" " required onChange={getPinCodeInfo} name="state" value disabled />
+              <input type="text" placeholder=" " required  name="state" value={state} disabled />
               <label>State</label>
             </div>
           </Box>

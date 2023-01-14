@@ -121,9 +121,6 @@
 
 
 @media all and (min-width: 320px) and (max-width: 700px) {
-    .addressbox {
-        /* height: 85vh; */
-    }
     .contactInfo{
         display: flex;
         flex-direction: column;
